@@ -18,12 +18,12 @@ import plotly.graph_objs as go              # For low-level graphing capabilitie
 df1 = pd.read_csv("/kaggle/input/online-sales-data/Details.csv") #
 df1.head()  # Display the first few rows of the dataset
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
-Order ID	  Amount	Profit	Quantity	Category	     Sub-Category	    PaymentMode
+Order ID	  Amount	Profit	Quantity	Category	         Sub-Category	    PaymentMode
 0	B-25681	  1096	  658	      7	      Electronics	  Electronic Games	COD
-1	B-26055	  5729	  64	      14	    Furniture	    Chairs	          EMI
+1	B-26055	  5729	  64	      14	       Furniture	    Chairs	          EMI
 2	B-25955	  2927	  146	      8	      Furniture	    Bookcases	        EMI
-3	B-26093	  2847	  712	      8	      Electronics	  Printers	        Credit Card
-4	B-25602	  2617	  1151	    4	      Electronics	  Phones	          Credit Card
+3	B-26093	  2847	  712	      8	      Electronics	   Printers	        Credit Card
+4	B-25602	  2617	  1151	     4	      Electronics	   Phones	          Credit Card
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 
 
@@ -74,12 +74,12 @@ df1.describe()
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
           Amount	        Profit	    Quantity
 count	  1500.000000	  1500.00000	  1500.000000
-mean	  291.847333	  24.64200	    3.743333
-std	    461.924620	  168.55881	    2.184942
-min	    4.000000	    -1981.00000	  1.000000
-25%	    47.750000	    -12.00000	    2.000000
-50%	    122.000000	   8.00000	    3.000000
-75%	    326.250000	  38.00000	    5.000000
+mean	   291.847333	   24.64200	    3.743333
+std	    461.924620	   168.55881	   2.184942
+min	    4.000000	     -1981.00000	 1.000000
+25%	    47.750000	    -12.00000	   2.000000
+50%	    122.000000	   8.00000	     3.000000
+75%	    326.250000	   38.00000	    5.000000
 max	    5729.000000	  1864.00000	  14.000000
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 
@@ -88,10 +88,10 @@ max	    5729.000000	  1864.00000	  14.000000
 df1.describe(exclude=np.number)
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
           OrderID	  Category	Sub-Category	PaymentMode
-count	    1500	    1500	      1500	      1500
+count	   1500	      1500	      1500	      1500
 unique	  500	        3	         17	         5
-top	      B-26056	  Clothing	  Saree	      COD
-freq	    12	       949	       211      	684
+top	     B-26056	  Clothing	  Saree	      COD
+freq	    12	         949	      211      	 684
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 
 
@@ -106,12 +106,12 @@ df1.duplicated().sum()
 df2 = pd.read_csv("/kaggle/input/online-sales-data/Orders.csv")
 df2.head() # Display the first few rows of the dataset
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
-Order ID	Order Date	CustomerName	State	          City
-0	B-26055	10-03-2018	Harivansh	    Uttar Pradesh  	Mathura
-1	B-25993	03-02-2018	Madhav	      Delhi	           Delhi
-2	B-25973	24-01-2018	Madan Mohan	  Uttar Pradesh	  Mathura
-3	B-25923	27-12-2018	Gopal	        Maharashtra	    Mumbai
-4	B-25757	21-08-2018	Vishakha	    Madhya Pradesh	Indore
+Order ID	Order Date	  CustomerName	     State	          City
+0	B-26055	10-03-2018	 Harivansh	    Uttar Pradesh  	Mathura
+1	B-25993	03-02-2018	 Madhav	          Delhi	        Delhi
+2	B-25973	24-01-2018	 Madan Mohan	  Uttar Pradesh	  Mathura
+3	B-25923	27-12-2018	 Gopal	        Maharashtra	    Mumbai
+4	B-25757	21-08-2018	 Vishakha	    Madhya Pradesh	  Indore
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 
 
@@ -165,10 +165,10 @@ df.head()   # Display the first few rows of the merged dataset
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
   Order ID	  Amount	Profit	Quantity	  Category	  Sub-Category	      PaymentMode	  Order Date	CustomerName	  State        	City
 0	B-25681	    1096	  658	      7	      Electronics	  Electronic Games	      COD	      04-06-2018	  Bhawna	  Madhya Pradesh    Indore
-1	B-26055	    5729	  64	      14	    Furniture	      Chairs	              EMI	      10-03-2018	 Harivansh	Uttar Pradesh	    Mathura
+1	B-26055	    5729	  64	      14	    Furniture	      Chairs	                EMI	      10-03-2018	 Harivansh	Uttar Pradesh	    Mathura
 2	B-25955	    2927	  146	      8	      Furniture	     Bookcases	            EMI	      16-01-2018	 Shiva	    Maharashtra      	Pune
 3	B-26093	    2847	  712	      8	      Electronics	   Printers	            CreditCard	27-03-2018	 Sarita	    Maharashtra      	Pune
-4	B-25602	    2617	  1151	    4	      Electronics	    Phones	            CreditCard	01-04-2018	 Vrinda	    Maharashtra	      Pune
+4	B-25602	    2617	  1151	    4	      Electronics	    Phones	            CreditCard	  01-04-2018	 Vrinda	    Maharashtra	      Pune
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 
 
@@ -242,9 +242,9 @@ df.describe(exclude=np.number)
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
         OrderID	  Category	  Sub-Category	PaymentMode	  Order Date	CustomerName	 State	         City
 count	    1500	    1500	      1500	        1500	        1500	      1500	       1500	            1500
-unique	  500	        3	          17	          5	          307	         336	        19	             25
-top	    B-26056    	Clothing	  Saree	        COD	        10-03-2018	Abhishek	    Madhya Pradesh	  Indore
-freq	    12	        949	        211	        684	            33	        21	        314	             248
+unique	  500	        3	          17	          5	        307	        336	        19	             25
+top	    B-26056    	Clothing	  Saree	        COD	      10-03-2018	Abhishek	    Madhya Pradesh	  Indore
+freq	    12	        949	        211	        684	          33	        21	        314	             248
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 
 
@@ -252,12 +252,12 @@ freq	    12	        949	        211	        684	            33	        21	      
 df.drop(columns = ['Order ID','Order Date'], inplace = True)
 df.head()  # Display the dataset after dropping columns
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
-Amount	Profit	Quantity	 Category	    Sub-Category	  PaymentMode	  CustomerName	State	City
-0	1096	658	      7	      Electronics	Electronic Games	  COD	          Bhawna	Madhya Pradesh	Indore
-1	5729	64	      14	    Furniture	    Chairs	          EMI	        Harivansh	Uttar Pradesh	Mathura
-2	2927	146	      8	      Furniture	    Bookcases        	EMI	        Shiva	Maharashtra	Pune
-3	2847	712	      8	      Electronics	Printers	          Credit Card	 Sarita	Maharashtra	Pune
-4	2617	1151	    4	      Electronics	Phones	            Credit Card	 Vrinda	Maharashtra	Pune
+Amount	Profit	Quantity	 Category	    Sub-Category	  PaymentMode	  CustomerName	State	         City
+0	1096	658	      7	      Electronics	Electronic Games	  COD	        Bhawna   	Madhya Pradesh	Indore
+1	5729	64	      14	      Furniture	    Chairs	          EMI	        Harivansh	Uttar Pradesh	 Mathura
+2	2927	146	      8	      Furniture	    Bookcases        	EMI	        Shiva	   Maharashtra	    Pune
+3	2847	712	      8	      Electronics	  Printers	     Credit Card	   Sarita	   Maharashtra	    Pune
+4	2617	1151	    4	       Electronics	   Phones	      Credit Card	   Vrinda	   Maharashtra	    Pune
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 
 
@@ -274,7 +274,7 @@ df.describe(exclude = np.number)
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
           Category	  Sub-Category	PaymentMode	CustomerName	State	         City
 count	      1500	      1500	      1500	        1500	      1500	         1500
-unique	      3	         17	          5	          336	         19            	25
+unique	      3	         17	          5	         336	     19            	25
 top	       Clothing	   Saree	       COD	       Abhishek	  Madhya Pradesh	Indore
 freq	      949	        211	         684	        21	        314            	248
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
