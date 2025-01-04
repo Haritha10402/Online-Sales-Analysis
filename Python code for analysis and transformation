@@ -305,6 +305,9 @@ iplot(px.pie(values = category,   # Data to visualize: counts of each category
              names = ['Clothing', 'Electronics', 'Furniture'],  # Labels for the categories
              title = 'Category'  # Set the title of the chart as 'Category'
             ).update_traces(textinfo='label+percent'))   # Display both the label and percentage on the pie chart
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
              
 SUB-CATEGORY
 print(f"number of Sub_Categories '{df['Sub-Category'].nunique()}'")   # Print the number of unique sub-categories in the 'Sub-Category' column
