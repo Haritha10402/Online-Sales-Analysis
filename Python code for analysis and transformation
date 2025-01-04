@@ -1,30 +1,43 @@
 ## Importing Neccessary Libarires
-Import Needed libraries
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-import plotly.express as px
+## Importing libraries for data analysis and visualization
 
-from plotly.offline import iplot , plot
-from plotly.subplots import make_subplots
+import pandas as pd               # For data manipulation and analysis
+import numpy as np                # For numerical operations
+import matplotlib.pyplot as plt   # For creating static visualizations
+import seaborn as sns             # For enhanced data visualization
+import plotly.express as px       # For interactive visualizations
 
-import plotly.graph_objs as go
 
-Loading Two Datasets And Get Info
-df1 = pd.read_csv("/kaggle/input/online-sales-data/Details.csv")
-df1.head()
-Order ID	Amount	Profit	Quantity	Category	Sub-Category	PaymentMode
-0	B-25681	1096	658	7	Electronics	Electronic Games	COD
-1	B-26055	5729	64	14	Furniture	Chairs	EMI
-2	B-25955	2927	146	8	Furniture	Bookcases	EMI
-3	B-26093	2847	712	8	Electronics	Printers	Credit Card
-4	B-25602	2617	1151	4	Electronics	Phones	Credit Card
+## Additional Plotly libraries
+
+from plotly.offline import iplot , plot     # For offline interactive plotting
+from plotly.subplots import make_subplots   # For creating complex subplots
+import plotly.graph_objs as go              # For low-level graphing capabilities
+
+## Loading Two Datasets And Get Info
+df1 = pd.read_csv("/kaggle/input/online-sales-data/Details.csv") #
+df1.head()  # Display the first few rows of the dataset
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+Order ID	  Amount	Profit	Quantity	Category	     Sub-Category	    PaymentMode
+0	B-25681	  1096	  658	      7	      Electronics	  Electronic Games	COD
+1	B-26055	  5729	  64	      14	    Furniture	    Chairs	          EMI
+2	B-25955	  2927	  146	      8	      Furniture	    Bookcases	        EMI
+3	B-26093	  2847	  712	      8	      Electronics	  Printers	        Credit Card
+4	B-25602	  2617	  1151	    4	      Electronics	  Phones	          Credit Card
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
 # Shape of DataSet
 print(f"Number of column :{df1.shape[1]}\nNumber of rows :{df1.shape[0]}")
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 Number of column :7
 Number of rows :1500
-df1.info()
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+# Checking the dataset's information (column types and non-null counts)
+df1.info()  
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 1500 entries, 0 to 1499
 Data columns (total 7 columns):
@@ -39,7 +52,12 @@ Data columns (total 7 columns):
  6   PaymentMode   1500 non-null   object
 dtypes: int64(3), object(4)
 memory usage: 82.2+ KB
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+# Checking for missing values in each column
 df1.isnull().sum()
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 Order ID        0
 Amount          0
 Profit          0
@@ -48,45 +66,78 @@ Category        0
 Sub-Category    0
 PaymentMode     0
 dtype: int64
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+# Descriptive statistics for numerical columns
 df1.describe()
-Amount	Profit	Quantity
-count	1500.000000	1500.00000	1500.000000
-mean	291.847333	24.64200	3.743333
-std	461.924620	168.55881	2.184942
-min	4.000000	-1981.00000	1.000000
-25%	47.750000	-12.00000	2.000000
-50%	122.000000	8.00000	3.000000
-75%	326.250000	38.00000	5.000000
-max	5729.000000	1864.00000	14.000000
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+          Amount	        Profit	    Quantity
+count	  1500.000000	  1500.00000	  1500.000000
+mean	  291.847333	  24.64200	    3.743333
+std	    461.924620	  168.55881	    2.184942
+min	    4.000000	    -1981.00000	  1.000000
+25%	    47.750000	    -12.00000	    2.000000
+50%	    122.000000	   8.00000	    3.000000
+75%	    326.250000	  38.00000	    5.000000
+max	    5729.000000	  1864.00000	  14.000000
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+# Descriptive statistics for non-numerical columns
 df1.describe(exclude=np.number)
-Order ID	Category	Sub-Category	PaymentMode
-count	1500	1500	1500	1500
-unique	500	3	17	5
-top	B-26056	Clothing	Saree	COD
-freq	12	949	211	684
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+          OrderID	  Category	Sub-Category	PaymentMode
+count	    1500	    1500	      1500	      1500
+unique	  500	        3	         17	         5
+top	      B-26056	  Clothing	  Saree	      COD
+freq	    12	       949	       211      	684
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
 # Checking for duplicated rows:
 df1.duplicated().sum()
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 0
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+# Loading the second dataset and examining its structure
 df2 = pd.read_csv("/kaggle/input/online-sales-data/Orders.csv")
-df2.head()
-Order ID	Order Date	CustomerName	State	City
-0	B-26055	10-03-2018	Harivansh	Uttar Pradesh	Mathura
-1	B-25993	03-02-2018	Madhav	Delhi	Delhi
-2	B-25973	24-01-2018	Madan Mohan	Uttar Pradesh	Mathura
-3	B-25923	27-12-2018	Gopal	Maharashtra	Mumbai
-4	B-25757	21-08-2018	Vishakha	Madhya Pradesh	Indore
+df2.head() # Display the first few rows of the dataset
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+Order ID	Order Date	CustomerName	State	          City
+0	B-26055	10-03-2018	Harivansh	    Uttar Pradesh  	Mathura
+1	B-25993	03-02-2018	Madhav	      Delhi	           Delhi
+2	B-25973	24-01-2018	Madan Mohan	  Uttar Pradesh	  Mathura
+3	B-25923	27-12-2018	Gopal	        Maharashtra	    Mumbai
+4	B-25757	21-08-2018	Vishakha	    Madhya Pradesh	Indore
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
 # Shape of DataSet
 print(f"Number of column :{df2.shape[1]}\nNumber of rows :{df2.shape[0]}")
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 Number of column :5
 Number of rows :500
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+# Checking for missing values in each column
 df2.isnull().sum()
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 Order ID        0
 Order Date      0
 CustomerName    0
 State           0
 City            0
 dtype: int64
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+# Checking the dataset's information (column types and non-null counts)
 df2.info()
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 500 entries, 0 to 499
 Data columns (total 5 columns):
@@ -99,23 +150,39 @@ Data columns (total 5 columns):
  4   City          500 non-null    object
 dtypes: object(5)
 memory usage: 19.7+ KB
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
 # Checking for duplicated rows:
 df2.duplicated().sum()
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 0
-Merge Two Datasts
-df = pd.merge(df1, df2, on='Order ID', how='left')
-df.head()
-Order ID	Amount	Profit	Quantity	Category	Sub-Category	PaymentMode	Order Date	CustomerName	State	City
-0	B-25681	1096	658	7	Electronics	Electronic Games	COD	04-06-2018	Bhawna	Madhya Pradesh	Indore
-1	B-26055	5729	64	14	Furniture	Chairs	EMI	10-03-2018	Harivansh	Uttar Pradesh	Mathura
-2	B-25955	2927	146	8	Furniture	Bookcases	EMI	16-01-2018	Shiva	Maharashtra	Pune
-3	B-26093	2847	712	8	Electronics	Printers	Credit Card	27-03-2018	Sarita	Maharashtra	Pune
-4	B-25602	2617	1151	4	Electronics	Phones	Credit Card	01-04-2018	Vrinda	Maharashtra	Pune
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+# Merging the two datasets on 'Order ID'
+df = pd.merge(df1, df2, on='Order ID', how='left')  
+df.head()   # Display the first few rows of the merged dataset
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+  Order ID	  Amount	Profit	Quantity	  Category	  Sub-Category	      PaymentMode	  Order Date	CustomerName	  State        	City
+0	B-25681	    1096	  658	      7	      Electronics	  Electronic Games	      COD	      04-06-2018	  Bhawna	  Madhya Pradesh    Indore
+1	B-26055	    5729	  64	      14	    Furniture	      Chairs	              EMI	      10-03-2018	 Harivansh	Uttar Pradesh	    Mathura
+2	B-25955	    2927	  146	      8	      Furniture	     Bookcases	            EMI	      16-01-2018	 Shiva	    Maharashtra      	Pune
+3	B-26093	    2847	  712	      8	      Electronics	   Printers	            CreditCard	27-03-2018	 Sarita	    Maharashtra      	Pune
+4	B-25602	    2617	  1151	    4	      Electronics	    Phones	            CreditCard	01-04-2018	 Vrinda	    Maharashtra	      Pune
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
 # Shape of DataSet
 print(f"Number of column :{df.shape[1]}\nNumber of rows :{df.shape[0]}")
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 Number of column :11
 Number of rows :1500
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+# Checking the merged dataset's information
 df.info()
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 1500 entries, 0 to 1499
 Data columns (total 11 columns):
@@ -134,7 +201,12 @@ Data columns (total 11 columns):
  10  City          1500 non-null   object
 dtypes: int64(3), object(8)
 memory usage: 129.0+ KB
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+# Checking for missing values in the merged dataset
 df.isnull().sum()
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 Order ID        0
 Amount          0
 Profit          0
@@ -147,62 +219,103 @@ CustomerName    0
 State           0
 City            0
 dtype: int64
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+# Descriptive statistics for numerical columns in the merged dataset
 df.describe()
-Amount	Profit	Quantity
-count	1500.000000	1500.00000	1500.000000
-mean	291.847333	24.64200	3.743333
-std	461.924620	168.55881	2.184942
-min	4.000000	-1981.00000	1.000000
-25%	47.750000	-12.00000	2.000000
-50%	122.000000	8.00000	3.000000
-75%	326.250000	38.00000	5.000000
-max	5729.000000	1864.00000	14.000000
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+          Amount	      Profit	    Quantity
+count	  1500.000000	  1500.00000	1500.000000
+mean	  291.847333	  24.64200	    3.743333
+std	    461.924620	  168.55881	    2.184942
+min    	4.000000	    -1981.00000	  1.000000
+25%	    47.750000	    -12.00000	    2.000000
+50%	    122.000000	  8.00000	      3.000000
+75%	    326.250000	  38.00000	    5.000000
+max	    5729.000000	  1864.00000	  14.000000
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+# Descriptive statistics for non-numerical columns in the merged dataset
 df.describe(exclude=np.number)
-Order ID	Category	Sub-Category	PaymentMode	Order Date	CustomerName	State	City
-count	1500	1500	1500	1500	1500	1500	1500	1500
-unique	500	3	17	5	307	336	19	25
-top	B-26056	Clothing	Saree	COD	10-03-2018	Abhishek	Madhya Pradesh	Indore
-freq	12	949	211	684	33	21	314	248
-Delete unnecessary columns
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+        OrderID	  Category	  Sub-Category	PaymentMode	  Order Date	CustomerName	 State	         City
+count	    1500	    1500	      1500	        1500	        1500	      1500	       1500	            1500
+unique	  500	        3	          17	          5	          307	         336	        19	             25
+top	    B-26056    	Clothing	  Saree	        COD	        10-03-2018	Abhishek	    Madhya Pradesh	  Indore
+freq	    12	        949	        211	        684	            33	        21	        314	             248
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+# Delete unnecessary columns
 df.drop(columns = ['Order ID','Order Date'], inplace = True)
-df.head()
-Amount	Profit	Quantity	Category	Sub-Category	PaymentMode	CustomerName	State	City
-0	1096	658	7	Electronics	Electronic Games	COD	Bhawna	Madhya Pradesh	Indore
-1	5729	64	14	Furniture	Chairs	EMI	Harivansh	Uttar Pradesh	Mathura
-2	2927	146	8	Furniture	Bookcases	EMI	Shiva	Maharashtra	Pune
-3	2847	712	8	Electronics	Printers	Credit Card	Sarita	Maharashtra	Pune
-4	2617	1151	4	Electronics	Phones	Credit Card	Vrinda	Maharashtra	Pune
+df.head()  # Display the dataset after dropping columns
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+Amount	Profit	Quantity	 Category	    Sub-Category	  PaymentMode	  CustomerName	State	City
+0	1096	658	      7	      Electronics	Electronic Games	  COD	          Bhawna	Madhya Pradesh	Indore
+1	5729	64	      14	    Furniture	    Chairs	          EMI	        Harivansh	Uttar Pradesh	Mathura
+2	2927	146	      8	      Furniture	    Bookcases        	EMI	        Shiva	Maharashtra	Pune
+3	2847	712	      8	      Electronics	Printers	          Credit Card	 Sarita	Maharashtra	Pune
+4	2617	1151	    4	      Electronics	Phones	            Credit Card	 Vrinda	Maharashtra	Pune
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
 # Shape of DataSet
 print(f"Number of column :{df.shape[1]}\nNumber of rows :{df.shape[0]}")
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 Number of column :9
 Number of rows :1500
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+# Descriptive statistics for non-numerical columns in the updated dataset
 df.describe(exclude = np.number)
-Category	Sub-Category	PaymentMode	CustomerName	State	City
-count	1500	1500	1500	1500	1500	1500
-unique	3	17	5	336	19	25
-top	Clothing	Saree	COD	Abhishek	Madhya Pradesh	Indore
-freq	949	211	684	21	314	248
-Visulaization
-Category
-print(f"number of Categories '{df['Category'].nunique()}'")
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+          Category	  Sub-Category	PaymentMode	CustomerName	State	         City
+count	      1500	      1500	      1500	        1500	      1500	         1500
+unique	      3	         17	          5	          336	         19            	25
+top	       Clothing	   Saree	       COD	       Abhishek	  Madhya Pradesh	Indore
+freq	      949	        211	         684	        21	        314            	248
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+VISULAIZATION
+
+CATEGORY
+print(f"number of Categories '{df['Category'].nunique()}'")   # Print the number of unique categories in the 'Category' column
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 number of Categories '3'
-category = df['Category'].value_counts()
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+category = df['Category'].value_counts()   # Count occurrences of each unique category in the 'Category' column
 category
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 Category
 Clothing       949
 Electronics    308
 Furniture      243
 Name: count, dtype: int64
-iplot(px.pie(values = category,
-             names = ['Clothing', 'Electronics', 'Furniture'],
-             title = 'Category'
-            ).update_traces(textinfo='label+percent'))
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+# Creating an interactive pie chart using Plotly Express for the 'Category' column
+iplot(px.pie(values = category,   # Data to visualize: counts of each category
+             names = ['Clothing', 'Electronics', 'Furniture'],  # Labels for the categories
+             title = 'Category'  # Set the title of the chart as 'Category'
+            ).update_traces(textinfo='label+percent'))   # Display both the label and percentage on the pie chart
              
-Sub-Category
-print(f"number of Sub_Categories '{df['Sub-Category'].nunique()}'")
+SUB-CATEGORY
+print(f"number of Sub_Categories '{df['Sub-Category'].nunique()}'")   # Print the number of unique sub-categories in the 'Sub-Category' column
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 number of Sub_Categories '17'
-Sub_Category = df['Sub-Category'].value_counts()
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+Sub_Category = df['Sub-Category'].value_counts()   # Count occurrences of each unique sub-category in the 'Sub-Category' column
 Sub_Category
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 Sub-Category
 Saree               211
 Hankerchief         197
@@ -222,16 +335,29 @@ Kurti                47
 Trousers             39
 Tables               17
 Name: count, dtype: int64
-iplot(px.bar(Sub_Category,
-             text_auto = True,
-             title = 'Sub Categories',
-             color_discrete_sequence=["#8c0404"],
-).update_xaxes(type=('category')))
-PaymentMode
-print(f"number of PaymentMode '{df['PaymentMode'].nunique()}'")
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+# Creating an interactive bar chart using Plotly Express for the 'Sub-Category' column
+iplot(px.bar(Sub_Category,       # Data to visualize: counts of each sub-category
+             text_auto = True,   # Display the values directly on the bars
+             title = 'Sub Categories',   # Set the title of the chart as 'Sub Categories'
+             color_discrete_sequence=["#8c0404"],  # Set a custom color for the bars
+).update_xaxes(type=('category')))   # Ensure the x-axis is treated as categorical
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+PAYMENTMODE
+print(f"number of PaymentMode '{df['PaymentMode'].nunique()}'")  # Print the number of unique payment modes in the 'PaymentMode' column
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 number of PaymentMode '5'
-PaymentMode = df['PaymentMode'].value_counts()
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+PaymentMode = df['PaymentMode'].value_counts()   # Count occurrences of each unique payment mode in the 'PaymentMode' column
 PaymentMode
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 PaymentMode
 COD            684
 UPI            331
@@ -239,16 +365,31 @@ Debit Card     202
 Credit Card    163
 EMI            120
 Name: count, dtype: int64
-iplot(px.bar(PaymentMode,
-             text_auto = True,
-             title = 'PaymentMode',
-             color_discrete_sequence=["#00CED1"],
-).update_xaxes(type=('category')))
-State
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+# Visualizing the distribution of 'PaymentMode'  # Displaying the count of unique payment modes 
+iplot(px.bar(PaymentMode,        # Data to visualize: counts of each payment mode
+             text_auto = True,    # Display the values directly on the bars
+             title = 'PaymentMode',  # Set the title of the chart as 'PaymentMode'
+             color_discrete_sequence=["#00CED1"],  # Set a custom color for the bars
+).update_xaxes(type=('category')))  # Ensure the x-axis is treated as categorical
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+STATE
+# Visualizing the distribution of 'State' # Displaying the count of each state 
 print(f"number of States '{df['State'].nunique()}'")
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 number of States '19'
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+# Count occurrences of each unique state
 State = df['State'].value_counts()
 State
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 State
 Madhya Pradesh       314
 Maharashtra          299
@@ -270,8 +411,12 @@ Haryana               26
 Tamil Nadu            25
 Sikkim                24
 Name: count, dtype: int64
+--------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
+
+
+# Creating a bar chart to visualize the distribution of states
 iplot(px.bar(State,
-             text_auto = True,
-             title = 'Top 10 States',
-             color_discrete_sequence=["#7FFF00"],
-).update_xaxes(type=('category')))
+             text_auto = True,  # Display the values directly on the bars
+             title = 'Top 10 States',  # Title of the chart
+             color_discrete_sequence=["#7FFF00"], # Setting the bar color
+).update_xaxes(type=('category'))) # Ensuring the x-axis displays categorical values
