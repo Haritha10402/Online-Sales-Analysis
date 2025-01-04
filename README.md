@@ -59,9 +59,9 @@ Install with:
 pip install pandas numpy matplotlib seaborn plotly
 
 
-**CONCLUSION** 
+## CONCLUSION 
 This analysis provides valuable insights into the online sales data. It helps identify which categories are most popular, the preferred payment methods, and regional patterns in sales. This can be used to make data-driven decisions regarding inventory management, marketing strategies, and payment system optimization.
 
-**License**
+## License
 MIT License
 This version focuses on key sections and gives a brief overview of the project.
