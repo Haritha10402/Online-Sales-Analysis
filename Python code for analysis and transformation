@@ -18,12 +18,12 @@ import plotly.graph_objs as go              # For low-level graphing capabilitie
 df1 = pd.read_csv("/kaggle/input/online-sales-data/Details.csv") #
 df1.head()  # Display the first few rows of the dataset
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
-Order ID	  Amount	Profit	Quantity	Category	         Sub-Category	    PaymentMode
-0	B-25681	  1096	  658	      7	      Electronics	  Electronic Games	COD
-1	B-26055	  5729	  64	      14	       Furniture	    Chairs	          EMI
-2	B-25955	  2927	  146	      8	      Furniture	    Bookcases	        EMI
-3	B-26093	  2847	  712	      8	      Electronics	   Printers	        Credit Card
-4	B-25602	  2617	  1151	     4	      Electronics	   Phones	          Credit Card
+	Order ID	Amount	Profit	Quantity	Category	Sub-Category	PaymentMode
+0	B-25681	1096	658	7	Electronics	Electronic Games	COD
+1	B-26055	5729	64	14	Furniture	Chairs	EMI
+2	B-25955	2927	146	8	Furniture	Bookcases	EMI
+3	B-26093	2847	712	8	Electronics	Printers	Credit Card
+4	B-25602	2617	1151	4	Electronics	Phones	Credit Card
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 
 
