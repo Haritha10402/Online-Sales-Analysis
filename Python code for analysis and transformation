@@ -1,0 +1,277 @@
+## Importing Neccessary Libarires
+Import Needed libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
+
+from plotly.offline import iplot , plot
+from plotly.subplots import make_subplots
+
+import plotly.graph_objs as go
+
+Loading Two Datasets And Get Info
+df1 = pd.read_csv("/kaggle/input/online-sales-data/Details.csv")
+df1.head()
+Order ID	Amount	Profit	Quantity	Category	Sub-Category	PaymentMode
+0	B-25681	1096	658	7	Electronics	Electronic Games	COD
+1	B-26055	5729	64	14	Furniture	Chairs	EMI
+2	B-25955	2927	146	8	Furniture	Bookcases	EMI
+3	B-26093	2847	712	8	Electronics	Printers	Credit Card
+4	B-25602	2617	1151	4	Electronics	Phones	Credit Card
+# Shape of DataSet
+print(f"Number of column :{df1.shape[1]}\nNumber of rows :{df1.shape[0]}")
+Number of column :7
+Number of rows :1500
+df1.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1500 entries, 0 to 1499
+Data columns (total 7 columns):
+ #   Column        Non-Null Count  Dtype 
+---  ------        --------------  ----- 
+ 0   Order ID      1500 non-null   object
+ 1   Amount        1500 non-null   int64 
+ 2   Profit        1500 non-null   int64 
+ 3   Quantity      1500 non-null   int64 
+ 4   Category      1500 non-null   object
+ 5   Sub-Category  1500 non-null   object
+ 6   PaymentMode   1500 non-null   object
+dtypes: int64(3), object(4)
+memory usage: 82.2+ KB
+df1.isnull().sum()
+Order ID        0
+Amount          0
+Profit          0
+Quantity        0
+Category        0
+Sub-Category    0
+PaymentMode     0
+dtype: int64
+df1.describe()
+Amount	Profit	Quantity
+count	1500.000000	1500.00000	1500.000000
+mean	291.847333	24.64200	3.743333
+std	461.924620	168.55881	2.184942
+min	4.000000	-1981.00000	1.000000
+25%	47.750000	-12.00000	2.000000
+50%	122.000000	8.00000	3.000000
+75%	326.250000	38.00000	5.000000
+max	5729.000000	1864.00000	14.000000
+df1.describe(exclude=np.number)
+Order ID	Category	Sub-Category	PaymentMode
+count	1500	1500	1500	1500
+unique	500	3	17	5
+top	B-26056	Clothing	Saree	COD
+freq	12	949	211	684
+# Checking for duplicated rows:
+df1.duplicated().sum()
+0
+df2 = pd.read_csv("/kaggle/input/online-sales-data/Orders.csv")
+df2.head()
+Order ID	Order Date	CustomerName	State	City
+0	B-26055	10-03-2018	Harivansh	Uttar Pradesh	Mathura
+1	B-25993	03-02-2018	Madhav	Delhi	Delhi
+2	B-25973	24-01-2018	Madan Mohan	Uttar Pradesh	Mathura
+3	B-25923	27-12-2018	Gopal	Maharashtra	Mumbai
+4	B-25757	21-08-2018	Vishakha	Madhya Pradesh	Indore
+# Shape of DataSet
+print(f"Number of column :{df2.shape[1]}\nNumber of rows :{df2.shape[0]}")
+Number of column :5
+Number of rows :500
+df2.isnull().sum()
+Order ID        0
+Order Date      0
+CustomerName    0
+State           0
+City            0
+dtype: int64
+df2.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 500 entries, 0 to 499
+Data columns (total 5 columns):
+ #   Column        Non-Null Count  Dtype 
+---  ------        --------------  ----- 
+ 0   Order ID      500 non-null    object
+ 1   Order Date    500 non-null    object
+ 2   CustomerName  500 non-null    object
+ 3   State         500 non-null    object
+ 4   City          500 non-null    object
+dtypes: object(5)
+memory usage: 19.7+ KB
+# Checking for duplicated rows:
+df2.duplicated().sum()
+0
+Merge Two Datasts
+df = pd.merge(df1, df2, on='Order ID', how='left')
+df.head()
+Order ID	Amount	Profit	Quantity	Category	Sub-Category	PaymentMode	Order Date	CustomerName	State	City
+0	B-25681	1096	658	7	Electronics	Electronic Games	COD	04-06-2018	Bhawna	Madhya Pradesh	Indore
+1	B-26055	5729	64	14	Furniture	Chairs	EMI	10-03-2018	Harivansh	Uttar Pradesh	Mathura
+2	B-25955	2927	146	8	Furniture	Bookcases	EMI	16-01-2018	Shiva	Maharashtra	Pune
+3	B-26093	2847	712	8	Electronics	Printers	Credit Card	27-03-2018	Sarita	Maharashtra	Pune
+4	B-25602	2617	1151	4	Electronics	Phones	Credit Card	01-04-2018	Vrinda	Maharashtra	Pune
+# Shape of DataSet
+print(f"Number of column :{df.shape[1]}\nNumber of rows :{df.shape[0]}")
+Number of column :11
+Number of rows :1500
+df.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1500 entries, 0 to 1499
+Data columns (total 11 columns):
+ #   Column        Non-Null Count  Dtype 
+---  ------        --------------  ----- 
+ 0   Order ID      1500 non-null   object
+ 1   Amount        1500 non-null   int64 
+ 2   Profit        1500 non-null   int64 
+ 3   Quantity      1500 non-null   int64 
+ 4   Category      1500 non-null   object
+ 5   Sub-Category  1500 non-null   object
+ 6   PaymentMode   1500 non-null   object
+ 7   Order Date    1500 non-null   object
+ 8   CustomerName  1500 non-null   object
+ 9   State         1500 non-null   object
+ 10  City          1500 non-null   object
+dtypes: int64(3), object(8)
+memory usage: 129.0+ KB
+df.isnull().sum()
+Order ID        0
+Amount          0
+Profit          0
+Quantity        0
+Category        0
+Sub-Category    0
+PaymentMode     0
+Order Date      0
+CustomerName    0
+State           0
+City            0
+dtype: int64
+df.describe()
+Amount	Profit	Quantity
+count	1500.000000	1500.00000	1500.000000
+mean	291.847333	24.64200	3.743333
+std	461.924620	168.55881	2.184942
+min	4.000000	-1981.00000	1.000000
+25%	47.750000	-12.00000	2.000000
+50%	122.000000	8.00000	3.000000
+75%	326.250000	38.00000	5.000000
+max	5729.000000	1864.00000	14.000000
+df.describe(exclude=np.number)
+Order ID	Category	Sub-Category	PaymentMode	Order Date	CustomerName	State	City
+count	1500	1500	1500	1500	1500	1500	1500	1500
+unique	500	3	17	5	307	336	19	25
+top	B-26056	Clothing	Saree	COD	10-03-2018	Abhishek	Madhya Pradesh	Indore
+freq	12	949	211	684	33	21	314	248
+Delete unnecessary columns
+df.drop(columns = ['Order ID','Order Date'], inplace = True)
+df.head()
+Amount	Profit	Quantity	Category	Sub-Category	PaymentMode	CustomerName	State	City
+0	1096	658	7	Electronics	Electronic Games	COD	Bhawna	Madhya Pradesh	Indore
+1	5729	64	14	Furniture	Chairs	EMI	Harivansh	Uttar Pradesh	Mathura
+2	2927	146	8	Furniture	Bookcases	EMI	Shiva	Maharashtra	Pune
+3	2847	712	8	Electronics	Printers	Credit Card	Sarita	Maharashtra	Pune
+4	2617	1151	4	Electronics	Phones	Credit Card	Vrinda	Maharashtra	Pune
+# Shape of DataSet
+print(f"Number of column :{df.shape[1]}\nNumber of rows :{df.shape[0]}")
+Number of column :9
+Number of rows :1500
+df.describe(exclude = np.number)
+Category	Sub-Category	PaymentMode	CustomerName	State	City
+count	1500	1500	1500	1500	1500	1500
+unique	3	17	5	336	19	25
+top	Clothing	Saree	COD	Abhishek	Madhya Pradesh	Indore
+freq	949	211	684	21	314	248
+Visulaization
+Category
+print(f"number of Categories '{df['Category'].nunique()}'")
+number of Categories '3'
+category = df['Category'].value_counts()
+category
+Category
+Clothing       949
+Electronics    308
+Furniture      243
+Name: count, dtype: int64
+iplot(px.pie(values = category,
+             names = ['Clothing', 'Electronics', 'Furniture'],
+             title = 'Category'
+            ).update_traces(textinfo='label+percent'))
+             
+Sub-Category
+print(f"number of Sub_Categories '{df['Sub-Category'].nunique()}'")
+number of Sub_Categories '17'
+Sub_Category = df['Sub-Category'].value_counts()
+Sub_Category
+Sub-Category
+Saree               211
+Hankerchief         197
+Stole               192
+Phones               83
+Electronic Games     79
+Bookcases            79
+T-shirt              77
+Printers             74
+Chairs               74
+Furnishings          73
+Accessories          72
+Shirt                69
+Skirt                64
+Leggings             53
+Kurti                47
+Trousers             39
+Tables               17
+Name: count, dtype: int64
+iplot(px.bar(Sub_Category,
+             text_auto = True,
+             title = 'Sub Categories',
+             color_discrete_sequence=["#8c0404"],
+).update_xaxes(type=('category')))
+PaymentMode
+print(f"number of PaymentMode '{df['PaymentMode'].nunique()}'")
+number of PaymentMode '5'
+PaymentMode = df['PaymentMode'].value_counts()
+PaymentMode
+PaymentMode
+COD            684
+UPI            331
+Debit Card     202
+Credit Card    163
+EMI            120
+Name: count, dtype: int64
+iplot(px.bar(PaymentMode,
+             text_auto = True,
+             title = 'PaymentMode',
+             color_discrete_sequence=["#00CED1"],
+).update_xaxes(type=('category')))
+State
+print(f"number of States '{df['State'].nunique()}'")
+number of States '19'
+State = df['State'].value_counts()
+State
+State
+Madhya Pradesh       314
+Maharashtra          299
+Gujarat               87
+Uttar Pradesh         87
+Delhi                 76
+Rajasthan             74
+West Bengal           63
+Bihar                 62
+Punjab                60
+Karnataka             50
+Jammu and Kashmir     49
+Nagaland              45
+Kerala                45
+Goa                   43
+Andhra Pradesh        42
+Himachal Pradesh      29
+Haryana               26
+Tamil Nadu            25
+Sikkim                24
+Name: count, dtype: int64
+iplot(px.bar(State,
+             text_auto = True,
+             title = 'Top 10 States',
+             color_discrete_sequence=["#7FFF00"],
+).update_xaxes(type=('category')))
