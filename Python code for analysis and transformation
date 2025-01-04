@@ -163,12 +163,12 @@ df2.duplicated().sum()
 df = pd.merge(df1, df2, on='Order ID', how='left')  
 df.head()   # Display the first few rows of the merged dataset
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
-  Order ID	  Amount	Profit	Quantity	  Category	  Sub-Category	      PaymentMode	  Order Date	CustomerName	  State        	City
-0	B-25681	    1096	  658	      7	      Electronics	  Electronic Games	      COD	      04-06-2018	  Bhawna	  Madhya Pradesh    Indore
-1	B-26055	    5729	  64	      14	    Furniture	      Chairs	                EMI	      10-03-2018	 Harivansh	Uttar Pradesh	    Mathura
-2	B-25955	    2927	  146	      8	      Furniture	     Bookcases	            EMI	      16-01-2018	 Shiva	    Maharashtra      	Pune
-3	B-26093	    2847	  712	      8	      Electronics	   Printers	            CreditCard	27-03-2018	 Sarita	    Maharashtra      	Pune
-4	B-25602	    2617	  1151	    4	      Electronics	    Phones	            CreditCard	  01-04-2018	 Vrinda	    Maharashtra	      Pune
+ 	Order ID	Amount	Profit	Quantity	Category	Sub-Category	PaymentMode	Order Date	CustomerName	State	City
+0	B-25681	1096	658	7	Electronics	Electronic Games	COD	04-06-2018	Bhawna	Madhya Pradesh	Indore
+1	B-26055	5729	64	14	Furniture	Chairs	EMI	10-03-2018	Harivansh	Uttar Pradesh	Mathura
+2	B-25955	2927	146	8	Furniture	Bookcases	EMI	16-01-2018	Shiva	Maharashtra	Pune
+3	B-26093	2847	712	8	Electronics	Printers	Credit Card	27-03-2018	Sarita	Maharashtra	Pune
+4	B-25602	2617	1151	4	Electronics	Phones	Credit Card	01-04-2018	Vrinda	Maharashtra	Pune
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 
 
