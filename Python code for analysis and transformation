@@ -15,7 +15,7 @@ from plotly.subplots import make_subplots   # For creating complex subplots
 import plotly.graph_objs as go              # For low-level graphing capabilities
 
 ## Loading Two Datasets And Get Info
-df1 = pd.read_csv("/kaggle/input/online-sales-data/Details.csv") #
+df1 = pd.read_csv("D:\desktop\online_sales Analysis\Details.csv")
 df1.head()  # Display the first few rows of the dataset
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 	Order ID	Amount	Profit	Quantity	Category	Sub-Category	PaymentMode
@@ -103,7 +103,7 @@ df1.duplicated().sum()
 
 
 # Loading the second dataset and examining its structure
-df2 = pd.read_csv("/kaggle/input/online-sales-data/Orders.csv")
+df2 = pd.read_csv("D:\desktop\online_sales Analysis\Orders.csv")
 df2.head() # Display the first few rows of the dataset
 --------------------------------------------------------##OUTPUT##----------------------------------------------------------------------
 Order ID	Order Date	  CustomerName	     State	          City
